@@ -1,0 +1,11 @@
+---
+services:
+  droplight:
+    image: balintsoos/droplight
+    build: .
+    container_name: droplight
+    volumes:
+      - ./pb_data:/pb/pb_data
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
