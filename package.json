@@ -1,0 +1,8 @@
+{
+  "name": "droplight",
+  "private": true,
+  "workspaces": [
+    "src/client",
+    "src/service"
+  ]
+}
