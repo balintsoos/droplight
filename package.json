@@ -2,10 +2,6 @@
   "name": "droplight",
   "private": true,
   "workspaces": [
-    "workspaces/client",
-    "workspaces/service"
-  ],
-  "devDependencies": {
-    "typescript": "^5.8.3"
-  }
+    "workspaces/client"
+  ]
 }
