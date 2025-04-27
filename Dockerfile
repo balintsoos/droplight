@@ -3,11 +3,9 @@ FROM node:22 as client-build
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-
-COPY . .
+COPY ./workspaces/client ./workspaces/client
 
 RUN npm ci
-
 RUN npm run build --workspace client
 
 FROM alpine:latest
