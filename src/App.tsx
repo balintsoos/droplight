@@ -10,7 +10,6 @@ type TestCollectionRecord = {
 };
 
 function App() {
-  const [count, setCount] = useState(0)
   const [data, setData] = useState<TestCollectionRecord[]>([]);
 
   useEffect(() => {
@@ -31,11 +30,6 @@ function App() {
   return (
     <>
       <h1>Droplight</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
       <table>
         <thead>
           <tr>

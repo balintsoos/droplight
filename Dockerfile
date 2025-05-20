@@ -1,15 +1,15 @@
-FROM node:22 as client-build
-
+# Stage 1: build client app
+FROM node:22 AS client-build
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-COPY ./workspaces/client ./workspaces/client
+RUN npm ci --audit=false --fund=false
 
-RUN npm ci
-RUN npm run build --workspace client
+COPY . .
+RUN npm run build
 
+# Stage 2: build PocketBase and copy client app from previous stage
 FROM alpine:latest
-
 ARG PB_VERSION=0.27.0
 
 RUN apk add --no-cache \
@@ -26,7 +26,7 @@ RUN unzip /tmp/pb.zip -d /pb/
 # uncomment to copy the local pb_hooks dir into the image
 # COPY ./pb_hooks /pb/pb_hooks
 
-COPY --from=client-build /app/workspaces/client/dist /pb/pb_public
+COPY --from=client-build /app/dist /pb/pb_public
 
 # start PocketBase
 CMD ["/pb/pocketbase", "serve", "--http=0.0.0.0:8080"]
