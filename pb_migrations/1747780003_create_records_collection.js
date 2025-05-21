@@ -9,9 +9,14 @@ migrate((app) => {
     deleteRule: null,
     fields: [
       {
-        type: "number",
         name: "meter",
+        type: "number",
         required: true,
+      },
+      {
+        name: "created",
+        type: "autodate",
+        onCreate: true,
       },
     ],
   });

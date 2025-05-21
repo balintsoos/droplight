@@ -1,19 +1,15 @@
 /// <reference path="../pb_data/types.d.ts" />
 
-onBootstrap((e) => {
-  e.next();
-  console.log("App initialized!");
-});
-
 routerAdd("GET", "/records", (e) => {
-  // TODO
-  return e.json(200, [
-    { id: 1, meter: 15 },
-    { id: 2, meter: 24 },
-  ]);
+  const records = $app.findAllRecords("records");
+  return e.json(200, records);
 });
 
 routerAdd("POST", "/records", (e) => {
-  // TODO
-  return e.json(201, {});
+  const recordsCollection = $app.findCollectionByNameOrId("records");
+  const record = new Record(recordsCollection);
+  const body = e.requestInfo().body;
+  record.set("meter", body.meter);
+  $app.save(record);
+  return e.json(201, record);
 });
