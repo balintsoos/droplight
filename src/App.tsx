@@ -1,30 +1,25 @@
-import { useEffect, useState } from 'react';
-import './App.css'
-import PocketBase from 'pocketbase';
+import { useEffect, useState } from "react";
 
-type TestCollectionRecord = {
+type Record = {
   id: string;
-  name: string;
-  created: string;
-  updated: string;
+  meter: number;
 };
 
 function App() {
-  const [data, setData] = useState<TestCollectionRecord[]>([]);
+  const [records, setRecords] = useState<Record[]>([]);
 
   useEffect(() => {
-    const pb = new PocketBase('/');
-
-    async function fetchData() {
+    async function fetchRecords() {
       try {
-        const records = await pb.collection<TestCollectionRecord>('test_collection').getFullList();
-        setData(records);
+        const response = await fetch("/records");
+        const records = await response.json();
+        setRecords(records);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching records:", error);
       }
     }
 
-    fetchData();
+    fetchRecords();
   }, []);
 
   return (
@@ -34,18 +29,14 @@ function App() {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>Created</th>
-            <th>Updated</th>
+            <th>Meter</th>
           </tr>
         </thead>
         <tbody>
-          {data.map((item) => (
-            <tr key={item.id}>
-              <td>{item.id}</td>
-              <td>{item.name}</td>
-              <td>{item.created}</td>
-              <td>{item.updated}</td>
+          {records.map((record) => (
+            <tr key={record.id}>
+              <td>{record.id}</td>
+              <td>{record.meter}</td>
             </tr>
           ))}
         </tbody>

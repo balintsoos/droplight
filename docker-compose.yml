@@ -7,5 +7,6 @@ services:
     volumes:
       - ./pb_data:/pb/pb_data
     ports:
-      - "8080:8080"
+      - "8090:8090"
+    env_file: ".env"
     restart: unless-stopped

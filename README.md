@@ -1,10 +1,10 @@
 # droplight
 
-Self-hosted web application for monitoring household electricity and water consumption
+Self-hosted web application for monitoring household electricity and water consumption.
 
 ## Technologies
 
-React application with PocketBase as a backend in a Docker container
+React application with PocketBase as a backend in a Docker container.
 
 ## Application
 
@@ -14,6 +14,8 @@ Tab 2: Show historical data queried from PocketBase in a graph for the daily con
 
 ## Getting started
 
+Add the following service to your `docker-compose.yml`.
+
 ```yml
 services:
   droplight:
@@ -22,12 +24,18 @@ services:
     volumes:
       - ./pb_data:/pb/pb_data
     ports:
-      - "8080:8080"
+      - "8090:8090"
+    environment:
+      - PB_SUPERUSER_EMAIL=***
+      - PB_SUPERUSER_PASSWORD=***
     restart: unless-stopped
 ```
+
+Start the container and navigate to http://localhost:8090 to open the application and http://localhost:8090/_/ to open the PocketBase superusers dashboard.
 
 ## Local development
 
 ```bash
 make start
 ```
+Navigate to http://localhost:8090
